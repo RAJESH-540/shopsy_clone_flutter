@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shopsy_clone/shopsy/pages/login.dart';
 
 import '../shopsy_data/category.dart';
 import '../shopsy_data/data.dart';
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
          elevation: 0,
          leading: Image.asset("assets/images/side_logo.webp"),
           leadingWidth: 70,
-          actions: const [
+          actions:  [
             Padding(
               padding: EdgeInsets.only(right: 15),
               child: Row(
@@ -38,9 +39,14 @@ class _HomeScreenState extends State<HomeScreen> {
                      color: Colors.deepPurpleAccent,
                    ),
                   SizedBox(width: 10,),
-                   Text("Login", style: TextStyle(
-                       color: Colors.deepPurpleAccent,
-                       fontSize: 15, fontWeight: FontWeight.bold ),)
+                   GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> const Login()));
+                      },
+                     child: Text("Login", style: TextStyle(
+                         color: Colors.deepPurpleAccent,
+                         fontSize: 15, fontWeight: FontWeight.bold ),),
+                   )
 
                 ],
               ),
