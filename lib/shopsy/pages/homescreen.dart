@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shopsy_clone/shopsy/componets/uihelper.dart';
 import 'package:shopsy_clone/shopsy/pages/login.dart';
+import 'package:shopsy_clone/shopsy/pages/mens_category_page.dart';
+import 'package:shopsy_clone/shopsy/pages/women_category.dart';
 
 import '../shopsy_data/category.dart';
 import '../shopsy_data/data.dart';
@@ -17,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+   UiHelper _uiHelper=UiHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -64,49 +68,93 @@ class _HomeScreenState extends State<HomeScreen> {
                // height: 200, width: MediaQuery.of(context).size.width,),
             ),
             const SizedBox(height: 10,),
-            SizedBox(
-              height: 120,
-              child: ListView.builder(
-                  itemCount: instaData.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index){
-                    return  GestureDetector(
-                       onTap: (){
-                         Navigator.push(context, MaterialPageRoute(builder: (context)=>CategoriesListPage(
-                             appBarName:  "${categoryData[index]["Name"]}",)));
-                       },
-                      child: Padding(
-                        padding: EdgeInsets.all(4.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage:  NetworkImage(
-                                      "${categoryData[index]["url"]}",
-                                    )
-                                ),
-                                Text(
-                                  "${categoryData[index]["Name"]}",
-                                  textAlign: TextAlign.center,
-                                  style: const  TextStyle(
-                                      color: Colors.deepPurpleAccent,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
+            SingleChildScrollView(
+               scrollDirection: Axis.horizontal,
+              child: SizedBox(
+                height: 120,
+                child:
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    UiHelper.circleCategoryList(
+                        image: 'https://i.pinimg.com/736x/d4/69/d6/d469d6e3a90e27b82ebbd2d883b70587.jpg',
+                        categoryName: 'Winter\nFashion',
+                        onPressed: () {  }),
+                    UiHelper.circleCategoryList(
+                        image: "https://img.freepik.com/premium-photo/photo-happy-excited-shopping-girls-with-colorful-bags_763111-24465.jpg",
+                        categoryName:"Women's\nFashion",
+                        onPressed: () {
+                           Navigator.push(context, MaterialPageRoute(builder: (context)=> const WomenCategory()));
+                        }),
+                    UiHelper.circleCategoryList(
+                        image: "https://img.mensxp.com/media/content/2023/May/Main-Image---iStock_6468782f3daca.jpeg?w=820&h=540&cc=1",
+                        categoryName:"Men's\nFashion",
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const MensFashionPage()));
+                        }),
+                    UiHelper.circleCategoryList(
+                        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHciOsPBZaXpF_9OCplTP1e7qlJ1neJuDbXg&usqp=CAU",
+                        categoryName:"Home\n",
+                        onPressed: () {  }),
+                    UiHelper.circleCategoryList(
+                        image: "https://static-bebeautiful-in.unileverservices.com/1200/900/8-must-have-makeup-brushes-for-beginners_mobilehome.jpg",
+                        categoryName:"Beauty \n& more",
+                        onPressed: () {  }),
+                    UiHelper.circleCategoryList(
+                        image: "https://e7.pngegg.com/pngimages/697/440/png-clipart-home-appliance-consumer-electronics-lg-electronics-laptop-laptop-kitchen-electronics.png",
+                        categoryName:"Electronic\n",
+                        onPressed: () {  }),
+                  ],
+                )
+
+
+
+                // ListView.builder(
+                //     itemCount: instaData.length,
+                //     scrollDirection: Axis.horizontal,
+                //     itemBuilder: (context, index){
+                //       return  GestureDetector(
+                //          onTap: (){
+                //            Navigator.push(context, MaterialPageRoute(builder: (context)=>CategoriesListPage(
+                //                appBarName:  "${categoryData[index]["Name"]}",)));
+                //          },
+                //         child: Padding(
+                //           padding: EdgeInsets.all(4.0),
+                //           child: Row(
+                //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //             children: [
+                //               Column(
+                //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //                 children: [
+                //                   CircleAvatar(
+                //                       radius: 30,
+                //                       backgroundImage:  NetworkImage(
+                //                         "${categoryData[index]["url"]}",
+                //                       )
+                //                   ),
+                //                   Text(
+                //                     "${categoryData[index]["Name"]}",
+                //                     textAlign: TextAlign.center,
+                //                     style: const  TextStyle(
+                //                         color: Colors.deepPurpleAccent,
+                //                         fontWeight: FontWeight.w500,
+                //                         fontSize: 12),
+                //                   )
+                //                 ],
+                //               )
+                //             ],
+                //           ),
+                //         ),
+                //       );
+                //     }),
+              ),
             ),
             const SizedBox(height: 10,),
-            const Text("Champion Deal on Bestseller", style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 20, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
+            const Text("Champion Deal on Bestseller",
+              style: TextStyle(color: Colors.deepPurpleAccent,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic),),
             const  Padding(
               padding: EdgeInsets.symmetric(horizontal: 60.0),
               child: Divider(color: Color(0xffE8C15B),  thickness: 2,),
