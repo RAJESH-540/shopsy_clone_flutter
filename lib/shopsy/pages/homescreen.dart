@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopsy_clone/shopsy/componets/uihelper.dart';
+import 'package:shopsy_clone/shopsy/pages/beautyPage.dart';
+import 'package:shopsy_clone/shopsy/pages/homeListPage.dart';
 import 'package:shopsy_clone/shopsy/pages/login.dart';
-import 'package:shopsy_clone/shopsy/pages/mens_category_page.dart';
-import 'package:shopsy_clone/shopsy/pages/women_category.dart';
-
-import '../shopsy_data/category.dart';
-import '../shopsy_data/data.dart';
+import 'package:shopsy_clone/shopsy/pages/mens/mens_category_page.dart';
+import 'package:shopsy_clone/shopsy/pages/womens/women_category.dart';
 import '../shopsy_data/deals.dart';
-import 'categories.dart';
 import 'dealspage.dart';
 
 
@@ -20,7 +18,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-   UiHelper _uiHelper=UiHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         image: "https://img.freepik.com/premium-photo/photo-happy-excited-shopping-girls-with-colorful-bags_763111-24465.jpg",
                         categoryName:"Women's\nFashion",
                         onPressed: () {
-                           Navigator.push(context, MaterialPageRoute(builder: (context)=> const WomenCategory()));
+                           Navigator.push(context, MaterialPageRoute(builder: (context)=> const WomenFashion()));
                         }),
                     UiHelper.circleCategoryList(
                         image: "https://img.mensxp.com/media/content/2023/May/Main-Image---iStock_6468782f3daca.jpeg?w=820&h=540&cc=1",
@@ -95,19 +92,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     UiHelper.circleCategoryList(
                         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHciOsPBZaXpF_9OCplTP1e7qlJ1neJuDbXg&usqp=CAU",
                         categoryName:"Home\n",
-                        onPressed: () {  }),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomeListPage()));
+                        }),
                     UiHelper.circleCategoryList(
                         image: "https://static-bebeautiful-in.unileverservices.com/1200/900/8-must-have-makeup-brushes-for-beginners_mobilehome.jpg",
                         categoryName:"Beauty \n& more",
-                        onPressed: () {  }),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const BeautyPageList()));
+                        }),
                     UiHelper.circleCategoryList(
                         image: "https://e7.pngegg.com/pngimages/697/440/png-clipart-home-appliance-consumer-electronics-lg-electronics-laptop-laptop-kitchen-electronics.png",
                         categoryName:"Electronic\n",
                         onPressed: () {  }),
                   ],
                 )
-
-
 
                 // ListView.builder(
                 //     itemCount: instaData.length,
@@ -170,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                      borderRadius: BorderRadius.circular(12)
                    ),
                   child: GridView.builder(
-                     physics:  const ScrollPhysics( ),
+                     physics:  const NeverScrollableScrollPhysics( ),
                      scrollDirection: Axis.vertical,
                      itemCount: championDeals.length,
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -184,7 +183,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context)=> DealsPage(
-                                    appBarName: "${championDeals[index]["Name"]}",),
+                                    appBarName: "${championDeals[index]["Name"]}",
+                                    imageUrl: "${championDeals[index]["url"]}",
+                                    name: "${championDeals[index]["From"]}" ,
+                                  ),
                                   ));
                             },
                            child: ClipRRect(
