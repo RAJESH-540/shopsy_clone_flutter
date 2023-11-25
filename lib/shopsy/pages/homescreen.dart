@@ -5,7 +5,11 @@ import 'package:shopsy_clone/shopsy/pages/beautyPage.dart';
 import 'package:shopsy_clone/shopsy/pages/homeListPage.dart';
 import 'package:shopsy_clone/shopsy/pages/login.dart';
 import 'package:shopsy_clone/shopsy/pages/mens/mens_category_page.dart';
+import 'package:shopsy_clone/shopsy/pages/product_detail_page.dart';
+import 'package:shopsy_clone/shopsy/pages/search_page.dart';
+import 'package:shopsy_clone/shopsy/pages/womens/cateogory_detailsPage.dart';
 import 'package:shopsy_clone/shopsy/pages/womens/women_category.dart';
+import 'package:shopsy_clone/shopsy/shopsy_data/electronic.dart';
 import '../shopsy_data/deals.dart';
 import 'dealspage.dart';
 
@@ -30,21 +34,26 @@ class _HomeScreenState extends State<HomeScreen> {
           leadingWidth: 70,
           actions:  [
             Padding(
-              padding: EdgeInsets.only(right: 15),
+              padding: const EdgeInsets.only(right: 15),
               child: Row(
                 children: [
-                   Icon(Icons.search,
-                     color: Colors.deepPurpleAccent,),
-                   SizedBox(width: 5,),
-                   Icon(Icons.shopping_cart,
+                   InkWell(
+                     onTap:(){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const SearchPage()));
+                     },
+                     child: const Icon(Icons.search,
+                       color: Colors.deepPurpleAccent,),
+                   ),
+                   const SizedBox(width: 5,),
+                   const Icon(Icons.shopping_cart,
                      color: Colors.deepPurpleAccent,
                    ),
-                  SizedBox(width: 10,),
+                  const SizedBox(width: 10,),
                    GestureDetector(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context)=> const Login()));
                       },
-                     child: Text("Login", style: TextStyle(
+                     child: const Text("Login", style: TextStyle(
                          color: Colors.deepPurpleAccent,
                          fontSize: 15, fontWeight: FontWeight.bold ),),
                    )
@@ -76,7 +85,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     UiHelper.circleCategoryList(
                         image: 'https://i.pinimg.com/736x/d4/69/d6/d469d6e3a90e27b82ebbd2d883b70587.jpg',
                         categoryName: 'Winter\nFashion',
-                        onPressed: () {  }),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const WomenFashion()));
+                        }),
                     UiHelper.circleCategoryList(
                         image: "https://img.freepik.com/premium-photo/photo-happy-excited-shopping-girls-with-colorful-bags_763111-24465.jpg",
                         categoryName:"Women's\nFashion",
@@ -104,48 +115,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     UiHelper.circleCategoryList(
                         image: "https://e7.pngegg.com/pngimages/697/440/png-clipart-home-appliance-consumer-electronics-lg-electronics-laptop-laptop-kitchen-electronics.png",
                         categoryName:"Electronic\n",
-                        onPressed: () {  }),
+                        onPressed: () {
+
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>CategoryListDetailsPage(
+                                data: electronic, appBar: "Electronic")));
+
+                        }),
                   ],
                 )
 
-                // ListView.builder(
-                //     itemCount: instaData.length,
-                //     scrollDirection: Axis.horizontal,
-                //     itemBuilder: (context, index){
-                //       return  GestureDetector(
-                //          onTap: (){
-                //            Navigator.push(context, MaterialPageRoute(builder: (context)=>CategoriesListPage(
-                //                appBarName:  "${categoryData[index]["Name"]}",)));
-                //          },
-                //         child: Padding(
-                //           padding: EdgeInsets.all(4.0),
-                //           child: Row(
-                //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //             children: [
-                //               Column(
-                //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //                 children: [
-                //                   CircleAvatar(
-                //                       radius: 30,
-                //                       backgroundImage:  NetworkImage(
-                //                         "${categoryData[index]["url"]}",
-                //                       )
-                //                   ),
-                //                   Text(
-                //                     "${categoryData[index]["Name"]}",
-                //                     textAlign: TextAlign.center,
-                //                     style: const  TextStyle(
-                //                         color: Colors.deepPurpleAccent,
-                //                         fontWeight: FontWeight.w500,
-                //                         fontSize: 12),
-                //                   )
-                //                 ],
-                //               )
-                //             ],
-                //           ),
-                //         ),
-                //       );
-                //     }),
               ),
             ),
             const SizedBox(height: 10,),
@@ -180,23 +158,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       ), itemBuilder: (context, index){
                          return  GestureDetector(
                             onTap: (){
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context)=> DealsPage(
-                                    appBarName: "${championDeals[index]["Name"]}",
-                                    imageUrl: "${championDeals[index]["url"]}",
-                                    name: "${championDeals[index]["From"]}" ,
-                                  ),
-                                  ));
+                               Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductDetailsPage(
+                                   img:  "${championDeals[index]["url"]}",
+                                   price:  "${championDeals[index]["From"]}",
+                                   off: "${championDeals[index]["off"]}",
+                                   cutPrice:"${championDeals[index]["price"]}",
+                                    productName:  "${championDeals[index]["Name"]}",
+                                   )));
                             },
                            child: ClipRRect(
                              borderRadius: BorderRadius.circular(12),
                              child: Column(
                                children: [
-                                 Image.network("${championDeals[index]["url"]}" ,
-                                   height: 150,
-                                   width:  MediaQuery.of(context).size.width,
-                                   fit:    BoxFit.cover,),
+                                 Hero(
+                                   tag: "${championDeals[index]["url"]}",
+                                   child: Image.network(
+                                     "${championDeals[index]["url"]}" ,
+                                     height: 150,
+                                     width:  MediaQuery.of(context).size.width,
+                                     fit:    BoxFit.cover,),
+                                 ),
                                  Container(
                                     width: MediaQuery.of(context).size.width,
                                     color:    const Color(0xffE8C15B),

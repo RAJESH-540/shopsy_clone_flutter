@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../shopsy_data/women_category.dart';
+import '../shopsy_data/women_data/women_category.dart';
 
 class CategoriesListPage extends StatefulWidget {
    final String appBarName;

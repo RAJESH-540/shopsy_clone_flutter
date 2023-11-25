@@ -32,11 +32,15 @@ class _DealsPageState extends State<DealsPage> {
                decoration: BoxDecoration(
                    borderRadius: BorderRadius.circular(12)
                ),
-               child: Image.network(
-                 widget.imageUrl,
-                 fit: BoxFit.cover,
-                 height: 450,
-                 width: MediaQuery.of(context).size.width,),
+               child: Hero(
+
+                 tag: "image",
+                 child: Image.network(
+                   widget.imageUrl,
+                   fit: BoxFit.cover,
+                   height: 450,
+                   width: MediaQuery.of(context).size.width,),
+               ),
              ),
              Text(
                widget.name,
